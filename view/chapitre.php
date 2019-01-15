@@ -18,9 +18,9 @@
         </div>
         <nav class="menu">
             <ul>
-                <li><a href="#Accueil">Accueil</a></li>
-                <li><a href="#Roman">Roman</a></li>
-                <li><a href="#Connexion">Connexion</a></li>
+                <li><a href="accueil.php">Accueil</a></li>
+                <li><a href="roman.php">Roman</a></li>
+                <li><a href="connexion.php">Connexion</a></li>
             </ul>
          </nav>
     </header>

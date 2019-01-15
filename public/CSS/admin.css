@@ -1,0 +1,41 @@
+#publication{
+    height: 390px;
+    width: 80%;
+    margin-left: 10%;
+    border: solid;
+    border-radius: 5px;
+    padding: 10px;
+    border-color: #3a7066;
+    margin-bottom: 20px;
+}
+#titre-billet{
+    padding: 10px;
+    width: 175px;
+    font-size: 15px;
+    margin-bottom: 5px;
+    
+}
+#bouton-publier{
+    width: 85px;
+    height: 41px;
+    background: white;
+    border-radius: 2px;
+    border: solid 1px grey; 
+    color: black;
+    margin-top: 5px;
+
+}
+
+#list-billets{
+    width: 80%;
+
+    margin-left: 10%;
+    border: solid;
+    border-radius: 5px;
+    padding: 10px;
+    border-color: #3a7066;
+    margin-bottom: 20px;
+}
+#connexion{
+    margin: 50px;
+}

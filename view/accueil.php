@@ -1,3 +1,6 @@
+<?php
+    require_once("../controller/accueilCtrl.php");
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,9 +23,9 @@
         </div>
         <nav class="menu">
             <ul>
-                <li><a href="#Accueil">Accueil</a></li>
-                <li><a href="#Roman">Roman</a></li>
-                <li><a href="#Connexion">Connexion</a></li>
+                <li><a href="accueil.php">Accueil</a></li>
+                <li><a href="roman.php">Roman</a></li>
+                <li><a href="connexion.php">Connexion</a></li>
             </ul>
          </nav>
     </header>
@@ -34,7 +37,7 @@
         </div>
     </div>
     <div id="last-news">
-        <h3>Derniere publication</h3>
+        <h3>Derniere publication</h3> 
         <img id="img4" src="../public//images/img4.jpg" alt="">
         <div class="news">
         <h4>Chapitre 4</h4>

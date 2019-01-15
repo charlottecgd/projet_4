@@ -13,6 +13,9 @@
     margin: 10px;
 
 }
+#last-news img{
+    width: 80%;
+}
 .news{
     width: 80%;
     height: 215px;

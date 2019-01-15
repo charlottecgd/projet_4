@@ -8,7 +8,7 @@
 }
 #img1{
     position: absolute;
-    margin-left: 20%;
+    margin-left: 10%;
 }
 #text-img{
     position: relative;
@@ -44,4 +44,7 @@
     margin-left: 20%;
     text-align: justify;
 
+}
+#last-news img{
+    width: 60%;
 }

@@ -5,6 +5,9 @@ USE jeanForteroche;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
+--
+-- Structure de la table `ecrivain`
+--
 CREATE TABLE `ecrivain` (
   `id` int NOT NULL AUTO_INCREMENT,
   `mp` varchar(255) NOT NULL,
@@ -27,7 +30,9 @@ CREATE TABLE `billet` (
     FOREIGN KEY (idEcrivain) REFERENCES ecrivain(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
+--
+-- Structure de la table `commentaire`
+--
 CREATE TABLE `commentaire` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `pseudo` varchar(255) NOT NULL,
