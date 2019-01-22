@@ -15,7 +15,7 @@ class Billet
     public function __construct($titre, $contenu){
             $this->setTitre($titre);
             $this->setcontenu($contenu);
-            $this->_postDate = date("d/m/Y H:i:s"); //Attention pour mysql , voir si le format est accepté
+            $this->_postDate = date("d/m/Y H:i:s");
             $util = new Util;
             $this->_slug = $util->slugify($titre);
     }

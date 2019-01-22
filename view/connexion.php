@@ -1,3 +1,6 @@
+<?php 
+require_once("../controller/connexionCtrl.php");
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -7,14 +10,22 @@
     </head>
  
     <body>
-      <div id="connexion">
-        <h3>Connexion administrateur</h3>
-        <p>Pseudo</p>
-        <input type="id" name="_id" />
-        <p> Mot de passe</p>
-        <input type="password" name="mot_de_passe"/>
-        <br><br>
-        <input type="submit" value="Valider" /> 
+      <form id="connexion" action="http://localhost/projet_4/projet_4/view/admin.php" method="post">
+      <h3>Connexion admninistrateur</h3>
+      <div>
+        <label for="mail">E-mail :</label>
+        <input type="email" id="mail" name="email">
       </div>
+      <div>
+        <label for="msg">Mot de passe</label>
+        <input type="password" name="mp">
+      </div>
+      <div><button type="submit" value="submit">Connexion</button></div>
+      <p><?php
+       if (isset($errorConnexion)){
+       echo $errorConnexion;
+       }
+       ?></p>
+      </form>
     </body>
 </html>

@@ -4,7 +4,7 @@ namespace projet4\Model;
 
 require_once("Util.php");
 
-class commentaire 
+class Commentaire 
 {
     private $_pseudo;
     private $_postDate;

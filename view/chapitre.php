@@ -1,3 +1,6 @@
+<?php
+    require_once("../controller/chapitreCtrl.php");
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -32,10 +35,10 @@
 
     <div id="formulaire-comment">
             <h3>Poster un commentaire</h3>
-            <form action="">
-                <input id="input-author-name"type="text" name="author" placeholder="Votre nom ou pseudo">
-                <textarea name="comment" id="" rows="5"  placeholder="Votre commentaire"></textarea>
-                <button type="submit">Envoyer</button>
+            <form action="http://localhost/projet_4/projet_4/view/chapitre.php" method="post">
+                <input id="input-author-name"type="text" name="pseudo" placeholder="Votre nom ou pseudo">
+                <textarea name="contenu" id="" rows="5"  placeholder="Votre commentaire"></textarea>
+                <button type="submit" value="submit">Envoyer</button>
             </form>
     </div>
     <div id="comments">

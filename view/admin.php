@@ -1,3 +1,6 @@
+<?php
+    require_once("../controller/adminCtrl.php");
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -32,9 +35,11 @@
     </header>
     <div id="publication">
     <h3>Poster un billet</h3>
+    <form action="http://localhost/projet_4/projet_4/view/roman.php" method="post">
     <input id="titre-billet" type="text" placeholder="Titre du billet">
     <textarea></textarea>
-    <button id="bouton-publier" type="submit">publier</button>
+    <button id="bouton-publier" type="submit" value="submit">publier</button>
+    </form>
     </div>
     <div id="list-billets">
         <h3>Liste des billets</h3>

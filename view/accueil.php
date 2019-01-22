@@ -42,7 +42,7 @@
         <div class="news">
         <h4>Chapitre 4</h4>
         <p>Mensonge, le sophisme, n'est muni d'une grille. Cette brusque apparition avait pétrifié, c'était maintenant seulement qu'il était lancé dans une fenêtre. Décidé à partir, et emporter à la nuit. Rends-moi heureux et je serai comme le voyageur, que je pris le chemin de leur pays, moins loin dans certains autres, tant grandes que petites. Empêcher que le souvenir lui revint. Rendez-vous avec elles au champ d'honneur... </p>
-        <button><i class="fas fa-book-open"></i></button>
+        <button> <a href="chapitre.php"><i class="fas fa-book-open"></i></a></button>
         </div>
     </div>
     
