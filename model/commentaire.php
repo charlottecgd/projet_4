@@ -20,22 +20,22 @@ class Commentaire
         $this->_signaled = false;
         $this->_moderate = false;
         
-}
-public function getPseudo(){
-    return $this->_pseudo ;
-}
-public function setPseudo($titre){
-    $this->_pseudo = $pseudo;
-}
-public function getContenu(){
+    }
+    public function getPseudo(){
+        return $this->_pseudo ;
+    }
+    public function setPseudo($titre){
+        $this->_pseudo = $pseudo;
+    }
+    public function getContenu(){
 
-}
-public function setContenu($contenu){
-    $this->_contenu = $contenu;
-}
+    }
+    public function setContenu($contenu){
+        $this->_contenu = $contenu;
+    }
 
-public function getPostDate(){
-   return $this->_postDate;
-}
+    public function getPostDate(){
+    return $this->_postDate;
+    }
 
 }

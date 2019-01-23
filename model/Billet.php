@@ -10,12 +10,13 @@ class Billet
     private $_postDate;
     private $_contenu;
     private $_slug;
-    private $_ecrivain;
+    private $_idEcrivain;
 
-    public function __construct($titre, $contenu){
+    public function __construct($titre, $contenu, $idEcrivain){
             $this->setTitre($titre);
-            $this->setcontenu($contenu);
-            $this->_postDate = date("d/m/Y H:i:s");
+            $this->setContenu($contenu);
+            $this->_idEcrivain = $idEcrivain;
+            $this->_postDate = date("Y-m-d H:i:s");
             $util = new Util;
             $this->_slug = $util->slugify($titre);
     }
@@ -25,12 +26,15 @@ class Billet
     }
     public function setTitre($titre){
         $this->_titre = $titre;
+        $util = new Util;
+        $this->_slug = $util->slugify($titre);
     }
 
-
-
     public function getContenu(){
-
+        return $this->_contenu ;
+    }
+    public function getSlug(){
+        return $this->_slug ;
     }
     public function setContenu($contenu){
         $this->_contenu = $contenu;
@@ -38,6 +42,14 @@ class Billet
 
     public function getPostDate(){
        return $this->_postDate;
+    }
+
+    public function getIdEcrivain(){
+        return $this->_idEcrivain;
+    }
+
+    public function getHumanDate(){
+        return date("d/m/Y H:i:s", strtotime($this->_postDate));
     }
 
    
