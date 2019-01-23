@@ -43,57 +43,50 @@
     </div>
     <div id="list-billets">
         <h3>Liste des billets</h3>
-        <ul>
-         <li>chapitre 1
-             <small>
-                <a href="">Supprimer</a>
-            </small></li>
-         <li>chapitre 2
-             <small>
-                <a href="">Supprimer</a>
-            </small></li> 
-         <li>chapitre 3
-             <small>
-                <a href="">Supprimer</a>
-            </small></li> 
-         <li>chapitre 4
-             <small>
-                <a href="">Supprimer</a>
-            </small></li>  
-        </ul>
-
+        <?php while($donnees = $reponse->fetch()){
+          ?>
+            <ul>
+                <li name="titre"><?php echo $donnees['titre'];?>
+                    <small>
+                        <a href="">Supprimer</a>
+                    </small></li>
+            </ul>
+            <?php
+                }
+                $reponse->closeCursor(); // Termine le traitement de la requête
+                ?>
+                
     </div>
-    <div id="comments">
-        <h3>Commentaires</h3>
-        <article>
-            <b>Martine</b>
-            <span>Le 11/03/2018</span>
-            <small>
-                <a href="">Supprimer</a>
-            </small>
-            <p>Super !</p>
-            <hr>
-        </article>
-        <article>
-            <b>Martine</b>
-            <span>Le 11/03/2018</span>
-            <small>
-                <a href="">Supprimer</a>
-            </small>
-            <p>Super !</p>
-            <hr>
-        </article>
-        <article>
-            <b>Martine</b>
-            <span>Le 11/03/2018</span>
-            <small>
-                <a href="">Supprimer</a>
-            </small>
-            <p>Super !</p>
-            <hr>
-        </article>
-    </div>
-
+        <div id="comments">
+            <h3>Commentaires</h3>
+            <article>
+                <b>Martine</b>
+                <span>Le 11/03/2018</span>
+                <small>
+                    <a href="">Supprimer</a>
+                </small>
+                <p>Super !</p>
+                <hr>
+            </article>
+            <article>
+                <b>Martine</b>
+                <span>Le 11/03/2018</span>
+                <small>
+                    <a href="">Supprimer</a>
+                </small>
+                <p>Super !</p>
+                <hr>
+            </article>
+            <article>
+                <b>Martine</b>
+                <span>Le 11/03/2018</span>
+                <small>
+                    <a href="">Supprimer</a>
+                </small>
+                <p>Super !</p>
+                <hr>
+            </article>
+        </div>
     </div>
     </body>
 </html>

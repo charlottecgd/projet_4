@@ -49,6 +49,13 @@ if (!isset($_SESSION['id']) && !isset($_SESSION['email'])){
         $resultat = $req->execute(array($billet->getTitre(),$billet->getContenu(),$billet->getPostDate(), $billet->getSlug(), $billet->getIdEcrivain()));
         
     }
+     /*
+    AFFICHER LES BILLETS
+    */
+    $reponse = $connection->query("SELECT * FROM billet");
+   
+   // SUPPRIMER BILLET
+   //DELETE FROM `billet` WHERE `billet`.`id` = 2 
 }
    
 
