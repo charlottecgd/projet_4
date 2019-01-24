@@ -14,13 +14,18 @@ class Commentaire
     private $_idBillet;
 
     public function __construct($pseudo, $contenu, $idBillet){
-        $this->setPseudo($pseudo);
-        $this->setcontenu($contenu);
-        $this->_postDate = date("Y-m-d H:i:s");
+        $this->_pseudo = $pseudo;
+        $this->_contenu = $contenu;
+        $this->_idBillet = $idBillet;
+        if($postDate){
+            $this->_postDate = $postDate;
+        }else{
+            $this->_postDate = date("Y-m-d H:i:s");
+        } 
         $util = new Util;
         $this->_signaled = false;
         $this->_moderate = false;
-        $this->_idBillet = $idBillet;
+       
         
     }
     public function getPseudo(){
@@ -30,7 +35,7 @@ class Commentaire
         $this->_pseudo = $pseudo;
     }
     public function getContenu(){
-
+        return $this->_contenu;
     }
     public function setContenu($contenu){
         $this->_contenu = $contenu;
@@ -44,5 +49,16 @@ class Commentaire
     }
     public function getIdBillet(){
         return $this->_idBillet;
+    }
+    public static function getcommentairesFromBdd(){
+        $connection = Util::getBdd();
+        $reponse = $connection->query("SELECT * FROM commentaire");
+        $commentaires = [];
+        while ($donnees = $reponse->fetch()){
+            $commentaire = new Commentaire($donnees['pseudo'],$donnees['contenu']);
+            array_push($commentaires,$commentaire);
+        }
+        $reponse->closeCursor();
+        return $commentaires;
     }
 }

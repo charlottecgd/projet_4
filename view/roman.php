@@ -40,15 +40,12 @@
     </div>
 
     <div class="news">
-    <?php while($donnees = $reponse->fetch()){ ?>
-        <h4 name="titre"><?php echo htmlspecialchars($donnees['titre']);?></h4>
-        <p name="postDate">publié le <?php echo $donnees['postedDate'];?> </p>
-        <p name="contenu"><?php echo $billet->getResume();?></p>
+    <?php foreach($billets as $billet){ ?>
+        <h4 name="titre"><?php echo $billet->getTitre();?></h4>
+        <p name="postDate">publié le <?php echo $billet->getPostDate();?> </p>
+        <p name="contenu"><?php echo $billet->getResume()?></p>
         <button> <a href="chapitre.php"><i class="fas fa-book-open"></i></a></button>
-        <?php
-            }
-            $reponse->closeCursor(); // Termine le traitement de la requête
-            ?>
+        <?php }?>
     </div>
     </body>
 </html>

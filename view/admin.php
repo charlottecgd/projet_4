@@ -58,31 +58,15 @@
         <div id="comments">
             <h3>Commentaires</h3>
             <article>
-                <b>Martine</b>
-                <span>Le 11/03/2018</span>
+            <?php foreach($commentaires as $commentaire){ ?>
+                <b name="pseudo"><?php echo $commentaire->getPseudo();?></b>
+                <span name=postDate>Le<?php echo $commentaire->getPostDate();?></span>
                 <small>
                     <a href="">Supprimer</a>
                 </small>
-                <p>Super !</p>
+                <p name="contenu"><?php echo $commentaire->getContenu();?></p>
                 <hr>
-            </article>
-            <article>
-                <b>Martine</b>
-                <span>Le 11/03/2018</span>
-                <small>
-                    <a href="">Supprimer</a>
-                </small>
-                <p>Super !</p>
-                <hr>
-            </article>
-            <article>
-                <b>Martine</b>
-                <span>Le 11/03/2018</span>
-                <small>
-                    <a href="">Supprimer</a>
-                </small>
-                <p>Super !</p>
-                <hr>
+             <?php } ?>
             </article>
         </div>
     </div>

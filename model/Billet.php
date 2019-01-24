@@ -22,7 +22,6 @@ class Billet
             }else{
                 $this->_postDate = date("Y-m-d H:i:s");
             }
-            
             $util = new Util;
             $this->_slug = $util->slugify($titre);
             $this->initResume();

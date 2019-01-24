@@ -55,7 +55,7 @@ if (!isset($_SESSION['id']) && !isset($_SESSION['email'])){
     Preparer les objets à afficher
     */       
     $billets = Billet::getBilletsFromBdd();
-    //$commentaires = Commentaire::getCommentairesFromBdd();
+    $commentaires = Commentaire::getCommentairesFromBdd();
                 
    
    // SUPPRIMER BILLET
@@ -63,9 +63,5 @@ if (!isset($_SESSION['id']) && !isset($_SESSION['email'])){
 }
 
 
-   /*AFFICHER COMMENTAIRES*/ 
-   $reponseCom = $connection->query("SELECT * FROM commentaire");
-   while ($donnees = $reponseCom->fetch()){
-    }
-    $reponseCom->closeCursor();
+   
 

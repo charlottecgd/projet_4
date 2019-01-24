@@ -9,7 +9,6 @@ use projet4\Model\Billet;
 $connection = Util::getBdd();
 
 //AFFICHAGE DES BILLETS
-
- $reponse = $connection->query("SELECT * FROM billet");
- $billet = new Billet($reponse['titre'], $reponse['contenu'], $reponse['idEcrivain']);
+$billets = Billet::getBilletsFromBdd();
+ 
 
