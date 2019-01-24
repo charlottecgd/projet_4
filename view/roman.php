@@ -40,19 +40,15 @@
     </div>
 
     <div class="news">
-        <h4>Chapitre 3</h4>
-        <p>Mensonge, le sophisme, n'est muni d'une grille. Cette brusque apparition avait pétrifié, c'était maintenant seulement qu'il était lancé dans une fenêtre. Décidé à partir, et emporter à la nuit. Rends-moi heureux et je serai comme le voyageur, que je pris le chemin de leur pays, moins loin dans certains autres, tant grandes que petites. Empêcher que le souvenir lui revint. Rendez-vous avec elles au champ d'honneur... </p>
+    <?php while($donnees = $reponse->fetch()){ ?>
+        <h4 name="titre"><?php echo htmlspecialchars($donnees['titre']);?></h4>
+        <p name="postDate">publié le <?php echo $donnees['postedDate'];?> </p>
+        <p name="contenu"><?php echo $billet->getResume();?></p>
         <button> <a href="chapitre.php"><i class="fas fa-book-open"></i></a></button>
-    </div>
-    <div class="news">
-        <h4>Chapitre 2</h4>
-        <p>Mensonge, le sophisme, n'est muni d'une grille. Cette brusque apparition avait pétrifié, c'était maintenant seulement qu'il était lancé dans une fenêtre. Décidé à partir, et emporter à la nuit. Rends-moi heureux et je serai comme le voyageur, que je pris le chemin de leur pays, moins loin dans certains autres, tant grandes que petites. Empêcher que le souvenir lui revint. Rendez-vous avec elles au champ d'honneur... </p>
-        <button><i class="fas fa-book-open"></i></button>
-    </div>
-    <div class="news">
-        <h4>Chapitre 1</h4>
-        <p>Mensonge, le sophisme, n'est muni d'une grille. Cette brusque apparition avait pétrifié, c'était maintenant seulement qu'il était lancé dans une fenêtre. Décidé à partir, et emporter à la nuit. Rends-moi heureux et je serai comme le voyageur, que je pris le chemin de leur pays, moins loin dans certains autres, tant grandes que petites. Empêcher que le souvenir lui revint. Rendez-vous avec elles au champ d'honneur... </p>
-        <button><i class="fas fa-book-open"></i></button>
+        <?php
+            }
+            $reponse->closeCursor(); // Termine le traitement de la requête
+            ?>
     </div>
     </body>
 </html>

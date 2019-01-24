@@ -2,8 +2,10 @@
 
 require_once("../model/Util.php");
 require_once("../model/Billet.php");
+require_once("../model/Commentaire.php");
 use projet4\Model\Util;
 use projet4\Model\Billet;
+use projet4\Model\Commentaire;
 
 //Connection BDD
 $connection = Util::getBdd();
@@ -45,18 +47,25 @@ if (!isset($_SESSION['id']) && !isset($_SESSION['email'])){
         $idEcrivain = intval($_SESSION['id']);//
         $billet = new Billet($titre, $contenu, $idEcrivain);
 
-        $req = $connection->prepare('INSERT INTO billet (titre, contenu, postedDate, slug, idEcrivain) VALUES(?, ?, ?, ?, ?)');
+        $req = $connection->prepare('INSERT INTO billet (titre, contenu, postedDate, slug, idEcrivain) VALUES(?, ?, ?, ?, ? )');
         $resultat = $req->execute(array($billet->getTitre(),$billet->getContenu(),$billet->getPostDate(), $billet->getSlug(), $billet->getIdEcrivain()));
         
     }
      /*
-    AFFICHER LES BILLETS
-    */
-    $reponse = $connection->query("SELECT * FROM billet");
+    Preparer les objets à afficher
+    */       
+    $billets = Billet::getBilletsFromBdd();
+    //$commentaires = Commentaire::getCommentairesFromBdd();
+                
    
    // SUPPRIMER BILLET
    //DELETE FROM `billet` WHERE `billet`.`id` = 2 
 }
-   
 
+
+   /*AFFICHER COMMENTAIRES*/ 
+   $reponseCom = $connection->query("SELECT * FROM commentaire");
+   while ($donnees = $reponseCom->fetch()){
+    }
+    $reponseCom->closeCursor();
 

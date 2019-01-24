@@ -11,14 +11,27 @@ class Billet
     private $_contenu;
     private $_slug;
     private $_idEcrivain;
+    private $_resume;
 
-    public function __construct($titre, $contenu, $idEcrivain){
-            $this->setTitre($titre);
-            $this->setContenu($contenu);
+    public function __construct($titre, $contenu, $idEcrivain, $postDate = null){
+            $this->_titre = $titre;
+            $this->_contenu = $contenu;
             $this->_idEcrivain = $idEcrivain;
-            $this->_postDate = date("Y-m-d H:i:s");
+            if($postDate){
+                $this->_postDate = $postDate;
+            }else{
+                $this->_postDate = date("Y-m-d H:i:s");
+            }
+            
             $util = new Util;
             $this->_slug = $util->slugify($titre);
+            $this->initResume();
+    }
+    private function initResume(){
+        $this->_resume = substr($this->_contenu, 0, 50);
+    } 
+    private function getResume(){
+        return $this->_resume;
     }
 
     public function getTitre(){
@@ -52,5 +65,17 @@ class Billet
         return date("d/m/Y H:i:s", strtotime($this->_postDate));
     }
 
+    public static function getBilletsFromBdd(){
+        $connection = Util::getBdd();
+        $reponse = $connection->query("SELECT * FROM billet");
+        $billets = [];
+        while ($donnees = $reponse->fetch()){
+            $billet = new Billet($donnees['titre'],$donnees['contenu'],$donnees['idEcrivain']);
+            array_push($billets,$billet);
+        }
+        $reponse->closeCursor();
+        return $billets;
+    }
+   
    
 }

@@ -43,18 +43,16 @@
     </div>
     <div id="list-billets">
         <h3>Liste des billets</h3>
-        <?php while($donnees = $reponse->fetch()){
-          ?>
             <ul>
-                <li name="titre"><?php echo $donnees['titre'];?>
+            <?php foreach($billets as $billet){ ?>
+                <li name="titre"><?php echo $billet->getTitre();?>
                     <small>
                         <a href="">Supprimer</a>
                     </small></li>
+            <?php } ?>
+                    
             </ul>
-            <?php
-                }
-                $reponse->closeCursor(); // Termine le traitement de la requête
-                ?>
+            
                 
     </div>
         <div id="comments">
