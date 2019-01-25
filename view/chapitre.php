@@ -28,47 +28,28 @@
          </nav>
     </header>
     <div class="news">
-        <h4>Chapitre 4</h4>
-        <p>Mensonge, leMensonge, le sophisme, n'est muni d'une grille. Cette brusque apparition avait pétrifié, c'était maintenant seulement qu'il était lancévvMensonge, le sophisme, n'est muni d'une grille. Cette brusque apparition avait pétrifié, c'était maintenant seulement qu'il était lancéMensonge, le sophisme, n'est muni d'une grille. Cette brusque apparition avait pétrifié, c'était maintenant seulement qu'il était lancévvvvvvvvvvvvvvv sophisme, n'est muni d'une grille. Cette brusque apparition avait pétrifié, c'était maintenant seulement qu'il était lancéMensonge, le sophisme, n'est muni d'une grille. Cette brusque apparition avait pétrifié, c'était maintenant seulement qu'il était lancéMensonge, le sophisme, n'est muni d'une grille. Cette brusque apparition avait pétrifié, c'était maintenant seulement qu'il était lancévvvMensonge, le sophisme, n'est muni d'une grille. Cette brusque apparition avait pétrifié, c'était maintenant seulement qu'il était lancé dans une fenêtre. Décidé à partir, et emporter à la nuit. Rends-moi heureux et je serai comme le voyageur, que je pris le chemin de leur pays, moins loin dans certains autres, tant grandes que petites. Empêcher que le souvenir lui revint. Rendez-vous avec elles au champ d'honneur... </p>
+        <h4><?php echo $billet->getTitre();?></h4>
+        <p><?php echo $billet->getContenu();?></p>
     </div>
     <img id="img4" src="../public/images/img51.jpg" alt="">
 
     <div id="formulaire-comment">
             <h3>Poster un commentaire</h3>
-            <form action="http://localhost/projet_4/projet_4/view/chapitre.php" method="post">
+            <form action="chapitre.php?billetSlug=<?php echo $billet->getSlug();?>" method="post">
                 <input id="input-author-name"type="text" name="pseudo" placeholder="Votre nom ou pseudo">
                 <textarea name="contenu" id="" rows="5"  placeholder="Votre commentaire"></textarea>
-                <button type="submit" value="submit">Envoyer</button>
+                <button type="submit" value="submit"><a href="chapitre.php?billetSlug=<?php echo $billet->getSlug();?>"></a>Envoyer</button>
             </form>
     </div>
     <div id="comments">
         <h3>Commentaires</h3>
         <article>
-            <b>Martine</b>
-            <span>Le 11/03/2018</span>
-            <small>
-                <a href="">Signaler</a>
-            </small>
-            <p>Super !</p>
-            <hr>
-        </article>
-        <article>
-            <b>Martine</b>
-            <span>Le 11/03/2018</span>
-            <small>
-                <a href="">Signaler</a>
-            </small>
-            <p>Super !</p>
-            <hr>
-        </article>
-        <article>
-            <b>Martine</b>
-            <span>Le 11/03/2018</span>
-            <small>
-                <a href="">Signaler</a>
-            </small>
-            <p>Super !</p>
-            <hr>
+        <?php foreach($commentaires as $commentaire){ ?>
+                <b name="pseudo"><?php echo $commentaire->getPseudo();?></b>
+                <span name=postDate>Le<?php echo $commentaire->getPostDate();?></span>
+                <p name="contenu"><?php echo $commentaire->getContenu();?></p>
+                <hr>
+             <?php } ?>
         </article>
     </div>
 

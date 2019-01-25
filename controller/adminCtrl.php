@@ -47,8 +47,7 @@ if (!isset($_SESSION['id']) && !isset($_SESSION['email'])){
         $idEcrivain = intval($_SESSION['id']);//
         $billet = new Billet($titre, $contenu, $idEcrivain);
 
-        $req = $connection->prepare('INSERT INTO billet (titre, contenu, postedDate, slug, idEcrivain) VALUES(?, ?, ?, ?, ? )');
-        $resultat = $req->execute(array($billet->getTitre(),$billet->getContenu(),$billet->getPostDate(), $billet->getSlug(), $billet->getIdEcrivain()));
+        $billets = Billet::saveBdd($billet);
         
     }
      /*

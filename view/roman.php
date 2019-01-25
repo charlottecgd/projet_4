@@ -28,7 +28,7 @@
             </ul>
          </nav>
     </header>
-    
+    <section>
     <div id="last-news">
         <h3>Derniere publication</h3>
         <img id="img4" src="../public/images/img4.jpg" alt="">
@@ -39,13 +39,14 @@
         </div>
     </div>
 
-    <div class="news">
-    <?php foreach($billets as $billet){ ?>
+     <div class="news"> <?php foreach($billets as $billet){ ?>
         <h4 name="titre"><?php echo $billet->getTitre();?></h4>
         <p name="postDate">publié le <?php echo $billet->getPostDate();?> </p>
         <p name="contenu"><?php echo $billet->getResume()?></p>
-        <button> <a href="chapitre.php"><i class="fas fa-book-open"></i></a></button>
+        <button> <a href="chapitre.php?billetSlug=<?php echo $billet->getSlug();?>"><i class="fas fa-book-open"></i></a></button>
+       
         <?php }?>
     </div>
+    </section>
     </body>
 </html>

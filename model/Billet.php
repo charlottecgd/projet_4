@@ -6,6 +6,7 @@ require_once("Util.php");
 
 class Billet 
 {
+    private $_id;
     private $_titre;
     private $_postDate;
     private $_contenu;
@@ -13,7 +14,7 @@ class Billet
     private $_idEcrivain;
     private $_resume;
 
-    public function __construct($titre, $contenu, $idEcrivain, $postDate = null){
+    public function __construct($titre, $contenu, $idEcrivain, $postDate = null, $id = null){
             $this->_titre = $titre;
             $this->_contenu = $contenu;
             $this->_idEcrivain = $idEcrivain;
@@ -25,11 +26,15 @@ class Billet
             $util = new Util;
             $this->_slug = $util->slugify($titre);
             $this->initResume();
+            $this->_id = $id;
+    }
+    public function getId(){
+        return $this->_id;
     }
     private function initResume(){
-        $this->_resume = substr($this->_contenu, 0, 50);
+        $this->_resume = substr($this->_contenu, 0, 500);
     } 
-    private function getResume(){
+    public function getResume(){
         return $this->_resume;
     }
 
@@ -69,12 +74,26 @@ class Billet
         $reponse = $connection->query("SELECT * FROM billet");
         $billets = [];
         while ($donnees = $reponse->fetch()){
-            $billet = new Billet($donnees['titre'],$donnees['contenu'],$donnees['idEcrivain']);
+            $billet = new Billet($donnees['titre'],$donnees['contenu'],$donnees['idEcrivain'],$donnees['postedDate'],$donnees['id']);
             array_push($billets,$billet);
         }
         $reponse->closeCursor();
         return $billets;
     }
-   
+    
+    public static function getBilletBySlugFromBdd($slug){
+        $connection = Util::getBdd();
+        $reponse = $connection->prepare('SELECT * FROM billet WHERE slug = :slug');
+        $reponse->execute(array('slug' => $slug));
+        $donnees = $reponse->fetch();
+        $billet = new Billet($donnees['titre'],$donnees['contenu'],$donnees['idEcrivain'],$donnees['postedDate'],$donnees['id']);
+        return $billet;
+       
+    }
+    public static function saveBdd($billet){
+        $connection = Util::getBdd();
+        $req = $connection->prepare('INSERT INTO billet (titre, contenu, postedDate, slug, idEcrivain) VALUES(?, ?, ?, ?, ? )');
+        $resultat = $req->execute(array($billet->getTitre(),$billet->getContenu(),$billet->getPostDate(), $billet->getSlug(), $billet->getIdEcrivain()));
+    }
    
 }
