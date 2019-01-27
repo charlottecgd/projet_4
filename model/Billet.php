@@ -1,6 +1,7 @@
 <?php
 
 namespace projet4\Model;
+use Exception;
 
 require_once("Util.php");
 
@@ -86,6 +87,9 @@ class Billet
         $reponse = $connection->prepare('SELECT * FROM billet WHERE slug = :slug');
         $reponse->execute(array('slug' => $slug));
         $donnees = $reponse->fetch();
+        if(!$donnees){
+            throw new Exception('Aucun billet avec ce slug');
+        }
         $billet = new Billet($donnees['titre'],$donnees['contenu'],$donnees['idEcrivain'],$donnees['postedDate'],$donnees['id']);
         return $billet;
        

@@ -22,9 +22,8 @@ class Commentaire
         }else{
             $this->_postDate = date("Y-m-d H:i:s");
         } 
-        $util = new Util;
-        $this->_signaled = null;
-        $this->_moderate = null;
+        $this->_signaledAt = null;
+        $this->_moderateAt = null;
     }
 
     public function getPseudo(){
@@ -65,6 +64,19 @@ class Commentaire
             array_push($commentaires,$commentaire);
         }
         $reponse->closeCursor();
+        return $commentaires;
+    }
+    public static function getCommentairesByIdBillet($idBillet){
+        $connection = Util::getBdd();
+        $response = $connection->prepare("SELECT * FROM commentaire WHERE idBillet = :idBillet");
+        $params = array('idBillet' => $idBillet);
+        $response->execute($params);
+        $commentaires = [];
+        while ($donnees = $response->fetch()){
+            $commentaire = new Commentaire($donnees['pseudo'],$donnees['contenu'],$donnees['idBillet'],$donnees['postedDate']);
+            array_push($commentaires,$commentaire);
+        }
+        $response->closeCursor();
         return $commentaires;
     }
     public static function saveBdd($commentaire){

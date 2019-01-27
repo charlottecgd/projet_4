@@ -46,7 +46,7 @@
         <article>
         <?php foreach($commentaires as $commentaire){ ?>
                 <b name="pseudo"><?php echo $commentaire->getPseudo();?></b>
-                <span name=postDate>Le<?php echo $commentaire->getPostDate();?></span>
+                <span name=postDate>Le <?php echo $commentaire->getPostDate();?></span>
                 <p name="contenu"><?php echo $commentaire->getContenu();?></p>
                 <hr>
              <?php } ?>
