@@ -12,11 +12,13 @@ class Commentaire
     private $_signaledAt;
     private $_moderateAt;
     private $_idBillet;
+    private $_id;
 
-    public function __construct($pseudo, $contenu, $idBillet, $postDate = null){
+    public function __construct($pseudo, $contenu, $idBillet, $postDate = null, $id = null){
         $this->_pseudo = $pseudo;
         $this->_contenu = $contenu;
         $this->_idBillet = $idBillet;
+        $this->_id = $id;
         if($postDate){
             $this->_postDate = $postDate;
         }else{
@@ -26,6 +28,9 @@ class Commentaire
         $this->_moderateAt = null;
     }
 
+    public function getId(){
+        return $this->_id ;
+    }
     public function getPseudo(){
         return $this->_pseudo ;
     }
@@ -44,6 +49,9 @@ class Commentaire
     public function getSignaledAt(){
         return $this->_signaledAt;
     }
+    public function setSignaledAt($date){
+        $this->_signaledAt = $date;
+    }
     public function getPostDate(){
         return $this->_postDate;
     }
@@ -60,7 +68,7 @@ class Commentaire
         $reponse = $connection->query("SELECT * FROM commentaire");
         $commentaires = [];
         while ($donnees = $reponse->fetch()){
-            $commentaire = new Commentaire($donnees['pseudo'],$donnees['contenu'],$donnees['idBillet'],$donnees['postedDate']);
+            $commentaire = new Commentaire($donnees['pseudo'],$donnees['contenu'],$donnees['idBillet'],$donnees['postedDate'],$donnees['id']);
             array_push($commentaires,$commentaire);
         }
         $reponse->closeCursor();
@@ -73,15 +81,28 @@ class Commentaire
         $response->execute($params);
         $commentaires = [];
         while ($donnees = $response->fetch()){
-            $commentaire = new Commentaire($donnees['pseudo'],$donnees['contenu'],$donnees['idBillet'],$donnees['postedDate']);
+            $commentaire = new Commentaire($donnees['pseudo'],$donnees['contenu'],$donnees['idBillet'],$donnees['postedDate'],$donnees['id']);
             array_push($commentaires,$commentaire);
         }
         $response->closeCursor();
         return $commentaires;
     }
+    
     public static function saveBdd($commentaire){
         $connection = Util::getBdd();
         $req = $connection->prepare('INSERT INTO commentaire (pseudo, contenu, postedDate, moderateAt, signaledAt, idBillet) VALUES(?, ?, ?, ?, ?, ?)');
-        $resultat = $req->execute(array($commentaire->getPseudo(),$commentaire->getContenu(),$commentaire->getPostDate(),$commentaire->getModerateAt(),$commentaire->getSignaledAt(), $commentaire->getIdBillet()));
+        $resultat = $req->execute(array($commentaire->getPseudo(),$commentaire->getContenu(),$commentaire->getPostDate(),$commentaire->getModerateAt(),$commentaire->getSignaledAt(),$commentaire->getIdBillet()));
+    }
+
+    public static function signalCommentById($id){
+        $connection = Util::getBdd();
+        $reponse = $connection->prepare("SELECT * FROM commentaire WHERE id = :id");
+        $reponse->execute(array('id' => $id));
+        $donnees = $reponse->fetch();
+        $commentaire = new Commentaire($donnees['pseudo'],$donnees['contenu'],$donnees['idBillet'],$donnees['postedDate'],$donnees['id']);
+        $date = date("Y-m-d H:i:s");
+        $commentaire->setSignaledAt($date);
+        $commentaire ->saveBdd($commentaire);
+        
     }
 }

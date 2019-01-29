@@ -48,6 +48,9 @@
                 <b name="pseudo"><?php echo $commentaire->getPseudo();?></b>
                 <span name=postDate>Le <?php echo $commentaire->getPostDate();?></span>
                 <p name="contenu"><?php echo $commentaire->getContenu();?></p>
+                <small>
+                    <a href="chapitre.php?billetSlug=<?php echo $billet->getSlug();?>&signalComment=<?php echo $commentaire->getId();?>">Signaler</a>
+                </small>
                 <hr>
              <?php } ?>
         </article>

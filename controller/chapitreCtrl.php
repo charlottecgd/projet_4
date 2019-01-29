@@ -1,9 +1,5 @@
 <?php
 
-
-
-//$slug = $_GET['chapitre'];
-
 require_once("../model/Util.php");
 require_once("../model/Billet.php");
 require_once("../model/Commentaire.php");
@@ -25,6 +21,7 @@ catch(Exception $e){
     die();
 }
 $idBillet = $billet->getId();
+
 //POSTER UN COMMENTAIRE
 
 if (isset($_POST['pseudo']) && isset($_POST['contenu'])){
@@ -33,7 +30,10 @@ if (isset($_POST['pseudo']) && isset($_POST['contenu'])){
     $contenu = $_POST['contenu'];
     $commentaire = new Commentaire($pseudo, $contenu, $idBillet);
     $billets = Commentaire::saveBdd($commentaire);
-    
+}
+else if(isset($_GET['signalComment'])){
+    $id = $_GET['signalComment'];
+    Commentaire::signalCommentById($id);
 }
 
 //RECUPERER LES COMMENTAIRES
