@@ -48,7 +48,11 @@
                 <li name="titre"><?php echo $billet->getTitre();?>
                     <small>
                         <a href="">Supprimer</a>
-                    </small></li>
+                    </small>
+                    <small>
+                        <a href="">Modifier</a>
+                    </small>
+                </li>
             <?php } ?>
                     
             </ul>
@@ -56,7 +60,7 @@
                 
     </div>
         <div id="comments">
-            <h3>Commentaires</h3>
+            <h3>Commentaires signalés</h3>
             <article>
             <?php foreach($commentaires as $commentaire){ ?>
                 <b name="pseudo"><?php echo $commentaire->getPseudo();?></b>

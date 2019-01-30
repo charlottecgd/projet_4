@@ -29,13 +29,17 @@ if (isset($_POST['pseudo']) && isset($_POST['contenu'])){
     $pseudo = $_POST['pseudo'];
     $contenu = $_POST['contenu'];
     $commentaire = new Commentaire($pseudo, $contenu, $idBillet);
-    $billets = Commentaire::saveBdd($commentaire);
+    $commentaire->saveBdd();
 }
 else if(isset($_GET['signalComment'])){
     $id = $_GET['signalComment'];
-    Commentaire::signalCommentById($id);
+    $commentaire = Commentaire::getCommentaireById($id);
+    $date = date("Y-m-d H:i:s");
+    $commentaire->setSignaledAt($date);
+    Commentaire::updateCommentaire($commentaire);
 }
 
 //RECUPERER LES COMMENTAIRES
-$commentaires = Commentaire::getCommentairesByIdBillet($idBillet);
+
+$commentaires = Commentaire::getNotModeratedCommentairesByIdBillet($idBillet);
 

@@ -94,10 +94,10 @@ class Billet
         return $billet;
        
     }
-    public static function saveBdd($billet){
+    public function saveBdd(){
         $connection = Util::getBdd();
         $req = $connection->prepare('INSERT INTO billet (titre, contenu, postedDate, slug, idEcrivain) VALUES(?, ?, ?, ?, ? )');
-        $resultat = $req->execute(array($billet->getTitre(),$billet->getContenu(),$billet->getPostDate(), $billet->getSlug(), $billet->getIdEcrivain()));
+        $resultat = $req->execute(array($this->_titre,$this->_contenu,$this->_postDate, $this->_slug, $this->_idEcrivain));
     }
    
 }

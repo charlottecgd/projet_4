@@ -46,8 +46,7 @@ if (!isset($_SESSION['id']) && !isset($_SESSION['email'])){
         $contenu = $_POST['contenu'];
         $idEcrivain = intval($_SESSION['id']);//
         $billet = new Billet($titre, $contenu, $idEcrivain);
-
-        $billets = Billet::saveBdd($billet);
+        $billet->saveBdd();
         
     }
      /*
