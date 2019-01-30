@@ -56,8 +56,14 @@ if (!isset($_SESSION['id']) && !isset($_SESSION['email'])){
     $commentaires = Commentaire::getCommentairesSignaledFromBdd();
                 
    
-   // SUPPRIMER BILLET
-   //DELETE FROM `billet` WHERE `billet`.`id` = 2 
+   // moderer Commentaire
+  if(isset($_GET['moderateComment'])){
+    $id = $_GET['moderateComment'];
+    $commentaire = Commentaire::getCommentaireById($id);
+    $date = date("Y-m-d H:i:s");
+    $commentaire->setmoderatedAt($date);
+    Commentaire::updateCommentaire($commentaire);
+} 
 }
 
 

@@ -66,7 +66,7 @@
                 <b name="pseudo"><?php echo $commentaire->getPseudo();?></b>
                 <span name=postDate>Le<?php echo $commentaire->getPostDate();?></span>
                 <small>
-                    <a href="">Supprimer</a>
+                    <a href="admin.php?>&moderateComment=<?php echo $commentaire->getId();?>">Supprimer</a>
                 </small>
                 <p name="contenu"><?php echo $commentaire->getContenu();?></p>
                 <hr>

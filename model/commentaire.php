@@ -67,7 +67,7 @@ class Commentaire
 
     public static function getCommentairesSignaledFromBdd(){
         $connection = Util::getBdd();
-        $reponse = $connection->query("SELECT * FROM commentaire WHERE signaledAt IS NOT NULL");
+        $reponse = $connection->query("SELECT * FROM commentaire WHERE signaledAt IS NOT NULL AND moderateAt IS NULL");
         $commentaires = [];
         while ($donnees = $reponse->fetch()){
             $commentaire = new Commentaire($donnees['pseudo'],$donnees['contenu'],$donnees['idBillet'],$donnees['postedDate'],$donnees['id']);
