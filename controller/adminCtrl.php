@@ -53,7 +53,7 @@ if (!isset($_SESSION['id']) && !isset($_SESSION['email'])){
     Preparer les objets à afficher
     */       
     $billets = Billet::getBilletsFromBdd();
-    $commentaires = Commentaire::getCommentairesFromBdd();
+    $commentaires = Commentaire::getCommentairesSignaledFromBdd();
                 
    
    // SUPPRIMER BILLET
