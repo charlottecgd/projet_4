@@ -50,6 +50,7 @@ INSERT INTO `billet` (`id`, `titre`, `contenu`, `postedDate`, `slug`, `idEcrivai
 (18, 'dd', '<p>dfdff</p>', '2019-01-24 14:08:09', 'dd', 1),
 (19, 'dd', '<p>dfdff</p>', '2019-01-24 14:14:22', 'dd', 1);
 
+-- --------------------------------------------------------
 
 --
 -- Structure de la table `commentaire`
@@ -135,13 +136,13 @@ ALTER TABLE `ecrivain`
 -- Contraintes pour la table `billet`
 --
 ALTER TABLE `billet`
-  ADD CONSTRAINT `billet_ibfk_1` FOREIGN KEY (`idEcrivain`) REFERENCES `ecrivain` (`id`);
+  ADD CONSTRAINT `billet_ibfk_1` FOREIGN KEY (`idEcrivain`) REFERENCES `ecrivain` (`id`)ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `commentaire`
 --
 ALTER TABLE `commentaire`
-  ADD CONSTRAINT `commentaire_ibfk_1` FOREIGN KEY (`idBillet`) REFERENCES `billet` (`id`);
+  ADD CONSTRAINT `commentaire_ibfk_1` FOREIGN KEY (`idBillet`) REFERENCES `billet` (`id`)ON DELETE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

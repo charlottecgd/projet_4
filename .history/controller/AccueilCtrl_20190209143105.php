@@ -1,0 +1,27 @@
+<?php
+namespace projet4\Controller;
+use projet4\Controller\BaseCtrl;
+require_once("model/Util.php");
+use projet4\Model\Util;
+require_once("model/Billet.php");
+use projet4\Model\Billet;
+
+class AccueilCtrl extends BaseController
+{
+    public function __construct(){
+        parent::__construct();
+    }
+
+    public function getViewElements(){
+        return $this->_viewElements;
+    }
+    /**
+     * Initialisation des élements dont la view a besoin
+     */
+    private function initViewElements(){
+        $this->_viewElements = [];
+        //dernier billet
+        $this->_viewElements['lastBillet'] = Billet::getLastBilletFromBdd();
+    }
+
+}
