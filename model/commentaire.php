@@ -1,8 +1,6 @@
 <?php
 
-namespace projet4\Model;
-
-require_once("util/Util.php");
+ require_once("service/bdd/BddService.php");
 
 class Commentaire 
 {
@@ -67,18 +65,19 @@ class Commentaire
 
     //METHODE CHAPITRE
     public static function getCommentairesSignaledFromBdd(){
-        $connection = Util::getBdd();
+        $connection = BddService::getBdd();
         $reponse = $connection->query("SELECT * FROM commentaire WHERE signaledAt IS NOT NULL AND moderateAt IS NULL");
         $commentaires = [];
         while ($donnees = $reponse->fetch()){
             $commentaire = new Commentaire($donnees['pseudo'],$donnees['contenu'],$donnees['idBillet'],$donnees['postedDate'],$donnees['id']);
+            $commentaire->setSignaledAt($donnees['signaledAt']);
             array_push($commentaires,$commentaire);
         }
         $reponse->closeCursor();
         return $commentaires;
     }
     public static function updateCommentaire($commentaire){
-        $connection = Util::getBdd();
+        $connection = BddService::getBdd();
         $req = $connection->prepare('UPDATE Commentaire SET signaledAt = :dateSignaled, moderateAt = :dateModerate  WHERE id = :id');
         $tab = [
             'dateSignaled' => $commentaire->getSignaledAt(), 
@@ -88,27 +87,28 @@ class Commentaire
         $req->execute($tab);
     }
     public function saveBdd(){
-        $connection = Util::getBdd();
+        $connection = BddService::getBdd();
         $req = $connection->prepare('INSERT INTO commentaire (pseudo, contenu, postedDate, moderateAt, signaledAt, idBillet) VALUES(?, ?, ?, ?, ?, ?)');
         $resultat = $req->execute(array($this->_pseudo,$this->_contenu,$this->_postDate,$this->_moderateAt,$this->_signaledAt,$this->_idBillet));
     }
     
     //METHODE ADMIN
     public static function getNotModeratedCommentairesByIdBillet($idBillet){
-        $connection = Util::getBdd();
+        $connection = BddService::getBdd();
         $response = $connection->prepare("SELECT * FROM commentaire WHERE idBillet = :idBillet AND moderateAt IS NULL");
         $params = array('idBillet' => $idBillet);
         $response->execute($params);
         $commentaires = [];
         while ($donnees = $response->fetch()){
             $commentaire = new Commentaire($donnees['pseudo'],$donnees['contenu'],$donnees['idBillet'],$donnees['postedDate'],$donnees['id']);
+            $commentaire->setSignaledAt($donnees['signaledAt']);
             array_push($commentaires,$commentaire);
         }
         $response->closeCursor();
         return $commentaires;
     }
     public static function getCommentaireById($id){
-        $connection = Util::getBdd();
+        $connection = BddService::getBdd();
         $reponse = $connection->prepare("SELECT * FROM commentaire WHERE id = :id");
         $reponse->execute(array('id' => $id));
         $donnees = $reponse->fetch();

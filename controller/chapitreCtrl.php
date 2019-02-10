@@ -1,56 +1,65 @@
 <?php
+ require_once("controller/BaseViewCtrl.php");
+ require_once("service/bdd/BddService.php");
+ require_once("model/Billet.php");
+ require_once("model/Commentaire.php");
 
-require_once("util/Util.php");
-require_once("model/Billet.php");
-require_once("model/Commentaire.php");
-use projet4\util\Util;
-use projet4\Model\Billet;
-use projet4\Model\Commentaire;
+class ChapitreCtrl extends BaseViewCtrl{
 
-//Connection BDD
-$connection = Util::getBdd();
-session_start();
+    private $_billet;
+    private $_commentaires;
 
-//AFFICHER BIllet
-$slug = $_GET['billetSlug'];
-try{
-    $billet = Billet::getBilletBySlugFromBdd($slug);
-}
-catch(Exception $e){
-    echo "Désolé il y a eu l'erreur : " . $e->getMessage();
-    die();
-}
-$idBillet = $billet->getId();
-
-//POSTER UN COMMENTAIRE
-
-if (isset($_POST['pseudo']) && isset($_POST['contenu'])){
-    $pseudo = $_POST['pseudo'];
-    $contenu = $_POST['contenu'];
-    try{
-        $commentaire = new Commentaire($pseudo, $contenu, $idBillet);
-        $commentaire->saveBdd();
+    public function __construct($queryParams, $postParams){
+        parent::__construct($queryParams, $postParams);
     }
-    catch(Exception $e){
-        echo "Désolé il y a eu l'erreur : " . $e->getMessage();
-        die();
+
+    protected function control(){
+        //Billet à afficher
+        $idBillet = $this->_queryParams['id'];
+        try{
+            $this->_billet = Billet::getBilletByIdFromBdd($idBillet);
+        }
+        catch(Exception $e){
+            echo "Désolé il y a eu l'erreur : " . $e->getMessage();
+        }
+        //Definition des intentions de l'utilisateur
+        $modeSignalerCommentaire = isset($this->_queryParams['signalComment']);
+        $modePublicationCommentaire = isset($this->_postParams['pseudo']) && isset($this->_postParams['contenu']);
+       
+        if($modePublicationCommentaire){//poster un commentaire
+            $pseudo = $this->_postParams['pseudo'];
+            $contenu = $this->_postParams['contenu'];
+            try{
+                $commentaire = new Commentaire($pseudo, $contenu, $idBillet);
+                $commentaire->saveBdd();
+            }
+            catch(Exception $e){
+                echo "Désolé il y a eu l'erreur : " . $e->getMessage();
+            }
+        }else if($modeSignalerCommentaire){ //signaler un commentaire
+            $id = $this->_queryParams['signalComment'];
+            try{
+                $commentaire = Commentaire::getCommentaireById($id);
+                $date = date("Y-m-d H:i:s");
+                $commentaire->setSignaledAt($date);
+                Commentaire::updateCommentaire($commentaire);
+            }
+            catch(Exception $e){
+                echo "Désolé il y a eu l'erreur : " . $e->getMessage();
+            }  
+        }
+        //RECUPERER LES COMMENTAIRES
+       $this->_commentaires = Commentaire::getNotModeratedCommentairesByIdBillet($idBillet);
+   
     }
-}
-else if(isset($_GET['signalComment'])){
-    $id = $_GET['signalComment'];
-    try{
-        $commentaire = Commentaire::getCommentaireById($id);
-        $date = date("Y-m-d H:i:s");
-        $commentaire->setSignaledAt($date);
-        Commentaire::updateCommentaire($commentaire);
-    }
-    catch(Exception $e){
-        echo "Désolé il y a eu l'erreur : " . $e->getMessage();
-        die();
-    }  
+
+    protected function initViewElements(){
+        $this->_viewElements = [];
+        $this->_viewElements['billet'] = $this->_billet;
+        $this->_viewElements['commentaires'] = $this->_commentaires;
+    } 
 }
 
-//RECUPERER LES COMMENTAIRES
 
-$commentaires = Commentaire::getNotModeratedCommentairesByIdBillet($idBillet);
+
 

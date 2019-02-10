@@ -1,15 +1,26 @@
 <?php 
+ require_once("controller/BaseViewCtrl.php");
+ require_once("service/bdd/BddService.php");
+ require_once("model/Billet.php");
 
-require_once("util/Util.php");
-require_once("model/Billet.php");
-use projet4\util\Util;
-use projet4\Model\Billet;
+class RomanCtrl extends BaseViewCtrl{
 
-//Connection BDD
-$connection = Util::getBdd();
+    private $_billets;
 
-//AFFICHAGE DES BILLETS
-$billets = Billet::getBilletsFromBdd();
-$billet = Billet::getLastBilletFromBdd();
+    public function __construct($queryParams, $postParams){
+        parent::__construct($queryParams, $postParams);
+    }
+
+
+    protected function control(){
+       $this->_billets = Billet::getBilletsFromBdd();
+    }
+
+    protected function initViewElements(){
+        $this->_viewElements = [];
+        //Afficher  les billets
+        $this->_viewElements['billets'] = $this->_billets;
+    }
+}
  
 

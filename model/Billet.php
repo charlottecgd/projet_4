@@ -1,10 +1,5 @@
 <?php
-
-namespace projet4\Model;
-use Exception;
-
-require_once("util/Util.php");
-use projet4\util\Util;
+require_once("service/bdd/BddService.php");
 
 class Billet 
 {
@@ -12,7 +7,6 @@ class Billet
     private $_titre;
     private $_postDate;
     private $_contenu;
-    private $_slug;
     private $_idEcrivain;
     private $_resume;
 
@@ -25,8 +19,6 @@ class Billet
             }else{
                 $this->_postDate = date("Y-m-d H:i:s");
             }
-            $util = new Util;
-            $this->_slug = $util->slugify($titre);
             $this->initResume();
             $this->_id = $id;
     }
@@ -45,15 +37,10 @@ class Billet
     }
     public function setTitre($titre){
         $this->_titre = $titre;
-        $util = new Util;
-        $this->_slug = $util->slugify($titre);
     }
 
     public function getContenu(){
         return $this->_contenu ;
-    }
-    public function getSlug(){
-        return $this->_slug ;
     }
     public function setContenu($contenu){
         $this->_contenu = $contenu;
@@ -73,17 +60,16 @@ class Billet
 
     //METHODES ADMIN
     public static function deleteBilletBdd($id){
-        $connection = Util::getBdd();
+        $connection = BddService::getBdd();
         $reponse = $connection->exec('DELETE FROM billet WHERE id = '.$id);
-    
     }
     public function saveBdd(){
-        $connection = Util::getBdd();
-        $req = $connection->prepare('INSERT INTO billet (titre, contenu, postedDate, slug, idEcrivain) VALUES(?, ?, ?, ?, ? )');
-        $resultat = $req->execute(array($this->_titre,$this->_contenu,$this->_postDate, $this->_slug, $this->_idEcrivain));
+        $connection = BddService::getBdd();
+        $req = $connection->prepare('INSERT INTO billet (titre, contenu, postedDate, idEcrivain) VALUES(?, ?, ?, ? )');
+        $resultat = $req->execute(array($this->_titre,$this->_contenu,$this->_postDate, $this->_idEcrivain));
     }
     public static function updatebillet($billet){
-        $connection = Util::getBdd();
+        $connection = BddService::getBdd();
         $req = $connection->prepare('UPDATE billet SET titre = :titre, contenu = :contenu  WHERE id = :id');
         $tab = [
             'titre'=> $billet->getTitre(), 
@@ -94,7 +80,7 @@ class Billet
     }
     //METHODE ACCUEIL DERNIER BILLET
     public static function getLastBilletFromBdd(){
-        $connection = Util::getBdd();
+        $connection = BddService::getBdd();
         $reponse = $connection->query('SELECT * FROM billet ORDER BY id DESC LIMIT 1');
         $donnees = $reponse->fetch();
         if(!$donnees){
@@ -107,7 +93,7 @@ class Billet
 
     //METHODE ROMAN 
     public static function getBilletsFromBdd(){
-        $connection = Util::getBdd();
+        $connection = BddService::getBdd();
         $reponse = $connection->query("SELECT * FROM billet");
         $billets = [];
         while ($donnees = $reponse->fetch()){
@@ -119,13 +105,13 @@ class Billet
     }
     
     //METHODE CHAPITRE
-    public static function getBilletBySlugFromBdd($slug){
-        $connection = Util::getBdd();
-        $reponse = $connection->prepare('SELECT * FROM billet WHERE slug = :slug');
-        $reponse->execute(array('slug' => $slug));
+    public static function getBilletByIdFromBdd($id){
+        $connection = BddService::getBdd();
+        $reponse = $connection->prepare('SELECT * FROM billet WHERE id = :id');
+        $reponse->execute(array('id' => $id));
         $donnees = $reponse->fetch();
         if(!$donnees){
-            throw new Exception('Aucun billet avec ce slug');
+            throw new Exception('Aucun billet avec cet id');
         }
         $billet = new Billet($donnees['titre'],$donnees['contenu'],$donnees['idEcrivain'],$donnees['postedDate'],$donnees['id']);
         return $billet;

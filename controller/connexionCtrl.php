@@ -1,11 +1,8 @@
 <?php 
-
-namespace projet4\Controller;
-require_once("util/Util.php");
-use projet4\util\Util;
-require_once("connexion/ConnexionUser.php");
-use projet4\connexion\ConnexionUser;
-require_once("exception/BadCredentialsException.php");
+ require_once("controller/BaseViewCtrl.php");
+ require_once("service/bdd/BddService.php");
+ require_once("service/connexion/ConnexionUserService.php");
+ require_once("exception/BadCredentialsException.php");
 
 class connexionCtrl extends BaseViewCtrl
 {
@@ -21,10 +18,10 @@ class connexionCtrl extends BaseViewCtrl
     }
 
     protected function control(){
-      // si on a les données de formulaire concernant la connexion on tente de connecter l'utilsateur
+      // si on a les données de formulaire concernant la connexion on tente de connecter l'service/utilsateur
       if (isset($this->_postParams['email']) && isset($this->_postParams['mp'])){
         try{
-          ConnexionUser::connectUser($this->_postParams['email'], $this->_postParams['mp']);
+          ConnexionUserService::connectUser($this->_postParams['email'], $this->_postParams['mp']);
           header('Location: ?action=admin');//page de redirection
           exit();
         }catch(\Exception $e){

@@ -1,50 +1,17 @@
-<?php
-    require_once("controller/romanCtrl.php");
-?>
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <title>Blog Jean Forteroche</title>
-        <link rel="stylesheet" href="public/CSS/webfonts.css">
-        <link rel="stylesheet" href="public/CSS/roman.css">
-        <link rel="stylesheet" href="public/CSS/theme.css">
-        <link rel="stylesheet" href="public/CSS/header.css">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-        <script>
-            if ( window.history.replaceState ) {
-                window.history.replaceState( null, null, window.location.href );
-            }
-        </script>
-    </head>
- 
-    <body>
-    <header>
-        <div>
-        <h1>Jean Forteroche</h1>
-        <p>Auteur et ecrivain</p>
-        </div>
-        <nav class="menu">
-            <ul>
-                <li><a href="?action=accueil">Accueil</a></li>
-                <li><a href="?action=roman">Roman</a></li>
-                <li><a href="?action=connexion">Connexion</a></li>
-            </ul>
-         </nav>
-    </header>
+<div id="roman">
     <section>
     
     <img id="img4" src="public//images/img4.jpg" alt="">
-      <?php foreach($billets as $billet){ ?>
+      <?php foreach($viewElements['billets'] as $billet){ ?>
         <div class="news">
         <h4 name="titre"><?php echo $billet->getTitre();?></h4>
         <p name="postDate">publié le <?php echo $billet->getPostDate();?> </p>
         <p name="contenu"><?php echo $billet->getResume()?></p>
-        <button> <a href="?action=chapitre&billetSlug=<?php echo $billet->getSlug();?>"><i class="fas fa-book-open"></i></a></button>
+        <button> <a href="?action=chapitre&id=<?php echo $billet->getId();?>"><i class="fas fa-book-open"></i></a></button>
         </div>
         <?php }?>
     
     </section>
-    </body>
-</html>
+</div>
+ 

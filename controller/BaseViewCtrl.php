@@ -1,5 +1,4 @@
 <?php
-namespace projet4\Controller;
 
 abstract class BaseViewCtrl 
 {

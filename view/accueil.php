@@ -14,7 +14,7 @@
         <h4 name="titre"><?php echo $viewElements['lastBillet']->getTitre();?></h4>
         <p name="postDate">Publié le <?php echo $viewElements['lastBillet']->getPostDate();?> </p>
         <p name="contenu"><?php echo $viewElements['lastBillet']->getResume()?></p>
-        <button> <a href="chapitre.php?billetSlug=<?php echo $viewElements['lastBillet']->getSlug();?>"><i class="fas fa-book-open"></i></a></button>
+        <button> <a href="?action=chapitre&id=<?php echo $viewElements['lastBillet']->getId();?>"><i class="fas fa-book-open"></i></a></button>
         </div>
     </div>
 </div>
